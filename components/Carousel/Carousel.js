@@ -18,36 +18,54 @@
   </div>
 */
 
+class Carousel {
+  constructor(element) {
+      
+      this.element = element;
+      let leftbutton = document.querySelector('.left-button');
+      this.leftbutton = leftbutton;
+      let rightbutton = document.querySelector('.right-button');
+      this.rightbutton = rightbutton;
+      let carouselimages = document.querySelectorAll('.carousel img');
+      this.carouselimages = carouselimages;
+      let index = 0;
+      this.index = index;
+      this.leftbutton.addEventListener('click', (event) => {
+          
+          this.CarouselClickLeft(event);
+      });
+      this.rightbutton.addEventListener('click', (event) => {
+          
+          this.CarouselClickRight(event);
+      });
+  }
+  CarouselClickLeft(event) {
+      if (this.index > 0) {
+          this.carouselimages[this.index].style.display = 'none';
+          this.index = this.index - 1;
+          this.carouselimages[this.index].style.display = 'flex';
+      }
+      else {
+          this.carouselimages[this.index].style.display = 'flex';
+      }
 
-const Carousel = () => {
-
-  // create elements
-  const carousel = document.createElement('div'),
-      leftButton = document.createElement('div'),
-      img1 = document.createElement('img'),
-      img2 = document.createElement('img'),
-      img3 = document.createElement('img'),
-      img4 = document.createElement('img'),
-      rightButton = document.createElement('div'),
-      toAppend = [leftButton, img1, img2, img3, img4, rightButton];
-
-  // add classes and srcs
-  carousel.classList.add('carousel');
-  leftButton.classList.add('left-button');
-  img1.src = './assets/carousel/mountains.jpeg';
-  img2.src = './assets/carousel/computer.jpeg';
-  img3.src = './assets/carousel/trees.jpeg';
-  img4.src = './assets/carousel/turntable.jpeg';
-  rightButton.classList.add('right-button');
-
-  //structure
-  toAppend.forEach(element => carousel.appendChild(element));
-
-  //content
-  leftButton.textContent = ' < ';
-  rightButton.textContent = ' > ';
-  
-  return carousel;
+  }
+  CarouselClickRight(event) {
+      if (this.index < 3) {
+          this.carouselimages[this.index].style.display = 'none';
+          this.index = this.index + 1;
+          this.carouselimages[this.index].style.display = 'flex';
+      }
+      else {
+          this.carouselimages[this.index].style.display = 'flex';
+      }
+  }
 }
 
-document.querySelector('.carousel-container').appendChild(Carousel());
+
+
+let carousel = document.querySelectorAll('.carousel');
+
+carousel = Array.from(carousel).map(link => new Carousel(link));
+
+carousel[0].CarouselClickLeft();
